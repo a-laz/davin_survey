@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-dark: #0B0C10;
+  --color-dark-blue: #1F2833;
+  --color-gray: #C5C6C7;
+  --color-teal: #66FCF1;
+  --color-teal-dark: #45A29E;
+}
+
+body {
+  color: var(--color-gray);
+  background-color: var(--color-dark);
+}
+
+.btn-primary {
+  @apply px-6 py-3 bg-[#66FCF1] text-[#0B0C10] font-medium rounded-lg hover:bg-[#45A29E] hover:text-[#C5C6C7] transition-colors;
+}
+
+.btn-secondary {
+  @apply px-6 py-3 border-2 border-[#66FCF1] text-[#66FCF1] font-medium rounded-lg hover:bg-[#1F2833] transition-colors;
+}
+
+.card {
+  @apply bg-[#1F2833] rounded-xl shadow-lg p-6 border border-[#45A29E]/20 hover:border-[#66FCF1]/50 transition-all;
+}
+
+.section-title {
+  @apply text-3xl font-bold text-[#66FCF1] mb-8;
+}
+
+.input-field {
+  @apply w-full px-4 py-2 bg-[#0B0C10] border border-[#45A29E] rounded-lg focus:ring-[#66FCF1] focus:border-[#66FCF1] text-[#C5C6C7];
+}
+
+.checkbox {
+  @apply h-4 w-4 text-[#66FCF1] focus:ring-[#45A29E] border-[#45A29E] rounded bg-[#0B0C10];
+}

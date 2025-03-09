@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Building2, BarChart4, Layers, Send, CheckCircle, Database, Cpu, Building, HardHat, Workflow, Menu, X } from 'lucide-react';
 import ShootingStars from './components/ShootingStars';
 import { supabase } from './lib/supabase';
+import { submitToAirtable } from './lib/airtable';
 
 function App() {
   const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ function App() {
     currentBimTools: [] as string[],
     challenges: '',
     desiredFeatures: [] as string[],
-    dataVisualization: '',
+    currentUsage: '',
     unreal: '',
     additionalComments: ''
   });
@@ -51,7 +52,8 @@ function App() {
     setIsSubmitting(true);
   
     try {
-      const { error } = await supabase
+      // Submit to Supabase
+      const { error: supabaseError } = await supabase
         .from('survey_responses')
         .insert([{
           name: formData.name,
@@ -61,18 +63,30 @@ function App() {
           current_bim_tools: formData.currentBimTools,
           challenges: formData.challenges,
           desired_features: formData.desiredFeatures,
-          data_visualization: formData.dataVisualization,
+          usage_type: formData.currentUsage,
           unreal_experience: formData.unreal,
           additional_comments: formData.additionalComments
         }]);
   
-      if (error) throw error;
+      if (supabaseError) {
+        console.error('Supabase error:', supabaseError);
+        throw new Error(`Supabase submission failed: ${supabaseError.message}`);
+      }
+
+      // Submit to Airtable
+      try {
+        await submitToAirtable(formData);
+      } catch (airtableError: any) {
+        console.error('Airtable error:', airtableError);
+        // Continue with success even if Airtable fails
+        // You might want to log this or handle it differently
+      }
       
       setSubmitted(true);
       console.log('Form submitted successfully:', formData);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error submitting form:', error);
-      setSubmitError('Failed to submit survey. Please try again.');
+      setSubmitError(error.message || 'Failed to submit survey. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -336,7 +350,7 @@ function App() {
                 <select
                   id="currentUsage"
                   name="currentUsage"
-                  value={formData.dataVisualization}
+                  value={formData.currentUsage}
                   onChange={handleInputChange}
                   className="input-field"
                   required

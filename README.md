@@ -114,20 +114,31 @@ The application uses Supabase for data storage. The database schema includes:
 
 ## Version Control
 
-Since Git is not available in the Bolt environment, this project includes a custom version control script:
+This project uses Git for version control. The main repository is hosted on GitHub at:
+https://github.com/a-laz/davin_survey.git
 
+To contribute:
+1. Create a new branch for your feature/fix:
 ```bash
-# Create a snapshot of the current state
-npm run snapshot "Your commit message here"
+git checkout -b feature/your-feature-name
+```
 
-# List all snapshots
-npm run snapshots
+2. Make your changes and commit them with descriptive messages:
+```bash
+git add .
+git commit -m "type: Brief description of changes"
+```
+Use appropriate commit types:
+- feat: New features
+- fix: Bug fixes
+- docs: Documentation changes
+- style: Code style changes
+- refactor: Code refactoring
+- test: Adding or modifying tests
 
-# Compare two snapshots (replace with actual snapshot IDs)
-npm run compare snapshot-id-1 snapshot-id-2
-
-# Restore a previous snapshot (replace with actual snapshot ID)
-npm run restore snapshot-id
+3. Push your changes and create a pull request:
+```bash
+git push origin feature/your-feature-name
 ```
 
 ## Deployment

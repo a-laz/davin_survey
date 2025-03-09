@@ -2,12 +2,13 @@ import Airtable from 'airtable';
 
 // Initialize Airtable with API key
 const airtable = new Airtable({
-  apiKey: import.meta.env.VITE_AIRTABLE_API_KEY
+  apiKey: import.meta.env.VITE_AIRTABLE_API_KEY,
+  endpointUrl: 'https://api.airtable.com'
 });
 
 // Constants for Airtable configuration
 const BASE_ID = 'appuojNVDfs9U7ccy';
-const TABLE_ID = 'tblgI35s7cmiGNb6m';
+const TABLE_NAME = 'Survey Responses'; // Using the correct table name for our survey
 
 // Function to submit survey response to Airtable
 export const submitToAirtable = async (formData: any) => {
@@ -18,35 +19,25 @@ export const submitToAirtable = async (formData: any) => {
     }
 
     const base = airtable.base(BASE_ID);
-    const table = base(TABLE_ID);
 
     // Log configuration (remove in production)
     console.log('Airtable Config:', {
       baseId: BASE_ID,
-      tableId: TABLE_ID,
-      apiKeyLength: import.meta.env.VITE_AIRTABLE_API_KEY.length
+      tableName: TABLE_NAME,
+      apiKeyPrefix: import.meta.env.VITE_AIRTABLE_API_KEY.substring(0, 10) + '...'
     });
 
-    // Ensure arrays are properly formatted for Airtable
-    const currentTools = Array.isArray(formData.currentBimTools) 
-      ? formData.currentBimTools.join(', ')
-      : formData.currentBimTools;
-
-    const desiredFeatures = Array.isArray(formData.desiredFeatures)
-      ? formData.desiredFeatures.join(', ')
-      : formData.desiredFeatures;
-
-    // Create record object
+    // Create record object matching the Survey Responses schema
     const recordData = {
       "Name": formData.name || '',
       "Email": formData.email || '',
       "Company": formData.company || '',
       "Role": formData.role || '',
-      "Current Tools": currentTools || '',
+      "Current Tools": formData.currentBimTools ? formData.currentBimTools.join(', ') : '',
       "Navisworks Export": formData.unreal || '',
       "Current Usage": formData.currentUsage || '',
       "Challenges": formData.challenges || '',
-      "Desired Features": desiredFeatures || '',
+      "Desired Features": formData.desiredFeatures ? formData.desiredFeatures.join(', ') : '',
       "Additional Comments": formData.additionalComments || ''
     };
 
@@ -54,8 +45,11 @@ export const submitToAirtable = async (formData: any) => {
     console.log('Creating Airtable record:', recordData);
 
     // Create a single record
-    const record = await table.create(recordData);
+    const record = await base(TABLE_NAME).create([
+      { fields: recordData }
+    ]);
 
+    console.log('Airtable record created:', record);
     return record;
   } catch (error: any) {
     // Enhanced error logging
@@ -67,7 +61,7 @@ export const submitToAirtable = async (formData: any) => {
       formData: formData,
       config: {
         baseId: BASE_ID,
-        tableId: TABLE_ID,
+        tableName: TABLE_NAME,
         hasApiKey: !!import.meta.env.VITE_AIRTABLE_API_KEY
       }
     });
@@ -76,15 +70,14 @@ export const submitToAirtable = async (formData: any) => {
   }
 };
 
-// Function to fetch survey responses from Airtable
+// Function to fetch records from Airtable
 export const fetchFromAirtable = async () => {
   try {
     const base = airtable.base(BASE_ID);
-    const table = base(TABLE_ID);
 
-    const records = await table.select({
+    const records = await base(TABLE_NAME).select({
       maxRecords: 100,
-      view: 'Grid view'
+      view: "Grid view"  // Using the default view name
     }).firstPage();
 
     return records;

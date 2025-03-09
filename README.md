@@ -1,6 +1,31 @@
-# BIM Survey Application
+# Virtual Design and Construction Survey Application
 
-A modern web application for collecting feedback on Building Information Modeling (BIM) technology needs and preferences.
+A modern web application for collecting feedback on Virtual Design and Construction (VDC) technology needs and preferences, with a focus on environments outside of Navisworks.
+
+## Recent Updates
+
+### Terminology Updates
+- Replaced "BIM" references with "Virtual Design and Construction" to better reflect industry terminology
+- Updated "Unreal Engine" references to "Environment Outside of Navisworks" for broader applicability
+- Modified UI text throughout to maintain consistency with VDC terminology
+
+### Survey Structure Changes
+- Personal Information section remains at the top and required to ensure data quality and follow-up capabilities
+- Current VDC Usage section includes new questions:
+  - "Have you imported your model out of Navisworks into another tool?"
+  - "What are you currently using Virtual Construction Design / 3D modeling for?"
+- Added more specific options for model usage including:
+  - Clash Detection and Subcontractor Coordination
+  - Phasing, Sequencing Logistics Planning
+  - Claim Support
+  - Marketing Videos
+
+### Form Design Decisions
+The Personal Information section is intentionally kept at the top and required rather than optional at the bottom because:
+1. It helps establish the respondent's context before they provide technical feedback
+2. Required contact information ensures we can follow up on valuable insights
+3. Having it at the top sets clear expectations for the survey process
+4. Maintains data quality by collecting verified professional responses
 
 ## Features
 
@@ -20,16 +45,10 @@ A modern web application for collecting feedback on Building Information Modelin
 
 ## Getting Started
 
-1. In the project root, initialize and install dependencies:
-```bash
-npm init -y
-npm install
-```
-
-2. To run the development server:
-```bash
-npm run dev
-```
+1. Clone the repository
+2. Install dependencies with `npm install`
+3. Copy `.env.example` to `.env` and add your Supabase credentials
+4. Run the development server with `npm run dev`
 
 ## Database Setup
 

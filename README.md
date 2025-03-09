@@ -45,10 +45,65 @@ The Personal Information section is intentionally kept at the top and required r
 
 ## Getting Started
 
-1. Clone the repository
-2. Install dependencies with `npm install`
-3. Copy `.env.example` to `.env` and add your Supabase credentials
-4. Run the development server with `npm run dev`
+### Prerequisites
+- Node.js 18+ installed
+- npm or yarn package manager
+- A Supabase account (free tier works fine)
+
+### Local Development Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/a-laz/davin_survey.git
+cd davin_survey
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Environment setup:
+   The repository includes the `.env` file with the following Supabase configuration:
+   ```
+   VITE_SUPABASE_URL=https://nilprlveermxswqlngyb.supabase.co
+   VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pbHBybHZlZXJteHN3cWxuZ3liIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA5NjU3MzIsImV4cCI6MjA1NjU0MTczMn0.GMyPg_zqI3s2GeMN0gpWmMcZKq_ZMYGgMzFGWYzCmRs
+   ```
+   These credentials are already set up and working with the project's Supabase instance.
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+5. Open your browser and navigate to:
+```
+http://localhost:5173
+```
+
+### Database Configuration
+
+The Supabase project is already configured with the necessary schema and security policies. You can access the dashboard at:
+https://nilprlveermxswqlngyb.supabase.co
+
+The schema includes:
+- `survey_responses` table for storing submissions
+- Row Level Security (RLS) policies:
+  - Anyone can submit survey responses
+  - Only authenticated users can read their own responses
+
+### Troubleshooting
+
+Common issues and solutions:
+
+1. If the development server fails to start:
+   - Make sure port 5173 is not in use
+   - Try running `npm run dev -- --port 3000` to use a different port
+
+2. For database connection issues:
+   - Check your internet connection
+   - Verify you're using the repository's `.env` file
+   - Contact repository maintainers if you need access to the Supabase dashboard
 
 ## Database Setup
 

@@ -554,7 +554,7 @@ function App() {
                 href="mailto:info@bimsurvey.com" 
                 className="text-teal hover:text-teal-dark transition-colors"
               >
-                info@bimsurvey.com
+                davin.contact.us@gmail.com
               </a>
             </div>
           </div>

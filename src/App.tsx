@@ -551,10 +551,10 @@ function App() {
               <h3 className="text-lg font-semibold mb-4 text-teal-dark">Contact Us</h3>
               <p className="text-gray mb-2">Have questions about our Virtual Design and Construction solutions?</p>
               <a 
-                href="mailto:info@bimsurvey.com" 
+                href="https://airtable.com/appuojNVDfs9U7ccy/pagF88tRb9ZfLsprg/form" 
                 className="text-teal hover:text-teal-dark transition-colors"
               >
-                davin.contact.us@gmail.com
+                Contact Us
               </a>
             </div>
           </div>
